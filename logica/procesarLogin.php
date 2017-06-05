@@ -1,45 +1,39 @@
 <?php
-if(!isset($_SESSION['PHPSESSID']) !="0") {
-	session_start(); }
 
-require_once('../clases/Usuario.class.php');
+require_once('../clases/persona.php');
 require_once('../logica/funciones.php');
+sessionCheck();
 
-//Obtiene los datos ingresados
-$login= strip_tags(trim($_POST['NomUsuario']));
-$pass = strip_tags(sha1(trim($_POST['PassUsuario'])));
-//Guardo el login en una variable de sesión
-$_SESSION["login"] = $login;
+
+$nom= strip_tags(trim($_POST['nombre']));
+//trim elimina los espacion en blanco
+$pass = strip_tags(trim($_POST['contrasena']));
 
 $conex = conectar();
-//$u= new Usuario ('',$login,md5($pass));
-$u= new Usuario ('',$login,$pass);
+$u= new Persona ('',$nom,'','','','','','','','',$pass); //la cantidad de elementos de la clase
 
-$datos_u=$u->coincideLoginPassword($conex);
+$datos_u=$u->loginusu($conex);
+  if(!empty($datos_u)){
+    $_SESSION['logged'] = true;
+    ?>
+    <script type="text/javascript">
+    var j = "<?php echo $nom; ?>";
+    window.alert("Bienvenido " + j);
+    location.href="../presentacion/index.php";
+    </script>
 
-if (!empty($datos_u))
-//si no está vacio el array es que coinciden el login y la password
-{
-//die(var_dump($datos_u));
-$_SESSION["LOGIN"] =$datos_u[0]["login"];
-$_SESSION["CATEGORIA"] =$datos_u[0]["categoria"];
-?>
-	 <script type="text/javascript">
-		location.href="../presentacion/cargamenu.php";
-	</script>
-<?php
-}
-else
-{
-//Si el array esta vacio, es que no encontro un registro que coincida el login y la password
-?>
- <script type="text/javascript">
 
-   window.alert("El Usuario o Password \n no es correcto.");
-   location.href="../presentacion/index.php";
- </script>
+    <?php
+
+}  else{
+  ?>
+  <script type="text/javascript">
+  window.alert("El Usuario o Password \n no es correcto.");
+  location.href="../presentacion/login.php";
+  </script>
   <?php
+//  desconectar($conex);
+
 }
-desconectar($conex);
 
 ?>

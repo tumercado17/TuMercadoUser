@@ -1,51 +1,96 @@
 <?php
-class PersistenciaPersona
-{
-    //param es un objeto de tipo Usuario
-    //conex es una variable de tipo conexion
+Require_once ('../logica/funciones.php'); //donde se conecta a la base
+sessionCheck();
 
+	class persistenciaPersona{
 
-   public function consTodos( $conex)
-   {
+	function agregar($obj,$conex){
+				$ci = $obj->getci();
+	      $nom = $obj->getnombre();
+	      $apell = $obj->getapellido();
+	      $email = $obj->getemail();
+	      $pais = $obj->getpais();
+	      $tarj = $obj->gettarjeta();
+	      $cali = $obj->getcalificacion();
+	      $calle = $obj->getcalle();
+	      $num = $obj->getnumero();
+	      $tel = $obj->gettelefono();
+	      $cont = $obj->getcontrasena();
 
-        $sql = "select * from persona";
+				//CONSULTA SQL
+				$sql = "select nombre,contrasena from persona where (nombre=:nombre and contrasena=:contrasena)";
 
-        $result = $conex->prepare($sql);
-        $result->execute();
-        $resultados=$result->fetchAll();
+				//VARIABLES PARA SQL "PREPARE" ES UNA FUNCION PDO, ES UNA FUNCION DEFINIDA
 
+				$consulta = $conex->prepare($sql);																			//DEFINIMOS LA CONSULTA, Y LA PREPARAMOS
+				$consulta->execute(array(':nombre'=>$nom,':contrasena'=>$cont));
 
-        return $resultados;
-    }
+				//echo $consulta;
+				if($consulta){
+					return true;
+				}else{
+					return false;
+					}
+			}
 
-   public function consUno($obj, $conex)
-   {
-        $id= trim($obj->getId());
-        $sql = "select * from persona where id=:id";
+			public function entrarusu($obj, $conex){
 
-        $result = $conex->prepare($sql);
-	      $result->execute(array(":id" => $id));
-		    $resultados=$result->fetchAll();
+	        //Obtiene los datos del objeto $obj
+	        $nom= trim($obj->getnombre());
+	        $pass= trim($obj->getcontrasena());
 
+	        $sql = "select * from persona where nombre=:nombre and contrasena=:contrasena";
 
-        return $resultados;
-    }
+	        $consulta = $conex->prepare($sql);
+					$consulta->execute(
+														array(
+																		":nombre" 		=> $nom,
+					 													":contrasena" => $pass
+																	)
+														);
 
-    public function consXdepto($obj, $conex)
-    {
-    	$idDepto= trim($obj->getIdDepto());
-    	//die(var_dump($idDepto));
-    	$sql = "select * from persona where idDepto=:idDepto";
+				/*Despues de ejecutar la consulta como es un SELECT debo utilizar el m�todo
+				fetchAll que devuelve un array que contiene todas las filas del conjunto de resultados
+				*/
 
-    	$result = $conex->prepare($sql);
-    	$result->execute(array(":idDepto" => $idDepto));
-    	$resultados=$result->fetchAll();
+					$result = $consulta->fetchAll();
+					$_SESSION['ci'] = $result[0]['ci'];
+				//Devuelvo el array que puede tener un registro o estar vacio si el usuario y contrase�a no coinciden
+				//print_r($result);
+					return $result;
+	    }
 
+			function getFact($obj,$conex){
+			$ci= trim($obj->getCi());
 
-    	return $resultados;
-    }
+			$sql = "select SUM(cantidad) as cantidad,SUM(preciototal) as preciototal from vendecompra v, publicacion p where v.idvendepublicacion = p.id and v.cvendeipersona = :ciPersona and p.cipersona = :ciPersona;";
 
+			$consulta = $conex->prepare($sql);
+			$consulta->execute(
+												array(
+																":ciPersona" 		=> $ci
+															)
+												);
+			$result = $consulta->fetchAll();
+			return $result;
 
- }
+			}
+
+			function getRep($obj,$conex){
+			$ci= trim($obj->getCi());
+
+			$sql = "select calificacion from vendecompra v, publicacion p where v.idvendepublicacion = p.id and v.cvendeipersona = :ciPersona and p.cipersona = :ciPersona;";
+
+			$consulta = $conex->prepare($sql);
+			$consulta->execute(
+												array(
+																":ciPersona" 		=> $ci
+															)
+												);
+			$result = $consulta->fetchAll();
+			return $result;
+
+			}
+	}
 
 ?>
