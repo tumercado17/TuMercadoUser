@@ -6,10 +6,17 @@
 <html lang="en">
 <!--<![endif]-->
 <head>
-    <?php
-        require_once("../logica/funciones.php");
-        sessionCheck();
-     ?>
+  <?php   require_once("../logica/funciones.php");
+          require_once("../clases/persona.php");
+          sessionCheck();
+          if($_SESSION['logged']  ==  false){
+            Require_once("./login.php");
+            ?>
+            <script>  window.alert("Inicie sesión para ver esa página.");</script>
+            <?php
+            echo "<meta http-equiv=\"refresh\" content=\"0; url=../presentacion/login.php\" />";
+          }
+      ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="">
@@ -131,8 +138,12 @@
               <div class="row">
                   <div class="col-md-6 ">
                     Categoría: <select id="categoria" name="categoria" class="form-control" required="required" placeholder="Categoría">
-                      <option value="A">A</option>
-                      <option value="B">B</option>
+                      <option value="amobl">Amoblamientos</option>
+                      <option value="veh">Vehículos</option>
+                      <option value="tecn">Tecnología</option>
+                      <option value="indu">Indumentria</option>
+                      <option value="electrodom">Electrodomésticos</option>
+                      <option value="servicios">Servicios</option>
                     </select>
                   </div>
                   <div class="form-group">

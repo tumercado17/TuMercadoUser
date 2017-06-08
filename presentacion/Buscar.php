@@ -87,29 +87,101 @@
      <section  id="services-sec">
      </section>
 
-     <section  id="services-sec">
-       <div class="container"  >
+     <form action="../logica/procesarBusqueda.php" method="get">
+     <section  id="formBusqueda">
+       <div class="container">
            <div class="row text-center">
              <table class="table">
-               <tr>
-                 <td>Codigo</td>
-                 <td>Nombre</td>
-                 <td>Fecha</td>
-                 <td>Precio</td>
-                 <td>Vendedor</td>
-               </tr>
-               <tr>
-                 <td>001</td>
-                 <td>Picadora mulinex</td>
-                 <td>12/11/84</td>
-                 <td>$40</td>
-                 <td>Fulano</td>
+                 <tr>
+                    <p>Búsqueda:</p>
+                 </tr>
+
+                 <tr>
+                   <div class="col-md-6">
+                     <input type="text" class="form-control" required="required" placeholder="Buscar" id="busqueda" name="busqueda" style="align:center" ></input>
+                   </div>
+                 </tr>
+
+                 <td>
+                    <p>Filtros</p>
+                 </td>
+                 <tr>
+                 <td>
+                    <select id="categoria" name="categoria" class="form-control" required="required" placeholder="Categoria">
+                                          <option value="default">Sin categoría</option>
+                                          <option value="amobl">Amoblamientos</option>
+                                          <option value="veh">Vehículos</option>
+                                          <option value="tecn">Tecnología</option>
+                                          <option value="indu">Indumentria</option>
+                                          <option value="electrodom">Electrodomésticos</option>
+                                          <option value="servicios">Servicios</option>
+                    </select>
+                 </td>
+                 <td>
+                   <select id="nuevUsu" name="nuevUsu" class="form-control" required="required" placeholder="Categoria">
+                                         <option value="nuevo">Nuevo</option>
+                                         <option value="usado">Usado</option>
+                   </select>
+                 </td>
+                 <td>
+                   <select id="orden" name="orden" class="form-control" required="required" placeholder="Ordenar por precio">
+                                         <option value="def">Ordenar por precio</option>
+                                         <option value="mayMen">Mayor precio primero</option>
+                                         <option value="menMay">Menor precio primero</option>
+                   </select>
+                 </td>
                </tr>
              </table>
            </div>
        </div>
+       <div class="form-group">
+           <button type="submit" class="btn btn-success">Buscar</button>
+       </div>
      </section>
+   </form>
 
+
+     <?php
+     echo $_SESSION['arrBusq'];
+     if(isset($_SESSION['arrBusq'])){
+       if(!empty($_SESSION['arrBusq'])){
+         	 $array=$_SESSION['arrBusq'];
+           $val = count($array);
+           echo '<section  id="services-sec">';
+              echo '<div class="container"  >';
+                 echo '<div class="row text-center">';
+                   echo  '<table class="table">';
+                     echo '<tr>';
+                       echo '<td>Nombre</td>';
+                       echo '<td>Categoría</td>';
+                       echo '<td>Stock</td>';
+                       echo '<td>Fecha</td>';
+                       echo '<td>Precio</td>';
+                       echo '<td>Tipo</td>';
+                       echo '<td>Vendedor</td>';
+                     echo '</tr>';
+           for ($i = 0; $i < $val; $i ++){
+                       echo '<tr>';
+                         echo '<td>' . $array[$i]['nombrepubli'] . '</td>';
+                         echo '<td>' . $array[$i]['categoria'] . '</td>';
+                         echo '<td>' . $array[$i]['stock'] . '</td>';
+                         echo '<td>' . $array[$i]['fecha'] . '</td>';
+                         echo '<td>' . $array[$i]['precio'] . '</td>';
+                         echo '<td>' . $array[$i]['tipo'] . '</td>';
+                         echo '<td>' . $array[$i]['nombre'] . '</td>';
+                       echo '</tr>';
+           }
+
+                     echo '</table>';
+                   echo '</div>';
+               echo '</div>';
+             echo '</section>';
+          unset($_SESSION['arrBusq']);
+       }
+     }
+
+
+     ?>
 
 
     <!--FOOTER SECTION -->

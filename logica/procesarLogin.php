@@ -12,7 +12,7 @@ $pass = strip_tags(trim($_POST['contrasena']));
 $conex = conectar();
 $u= new Persona ('',$nom,'','','','','','','','',$pass); //la cantidad de elementos de la clase
 
-$datos_u=$u->loginusu($conex);
+$datos_u = $u->loginusu($conex);
   if(!empty($datos_u)){
     $_SESSION['logged'] = true;
     ?>

@@ -11,7 +11,7 @@ class Publicacion
     public $tipo;
 
 
-    function __construct($a='',$b='',$c='',$d='',$e='',$f='',$n='',$t='')
+    function __construct($a='',$b='',$c='',$d='',$e='',$f='',$n='',$t='',$o='')
     {
     	  $this->id= $a;
         $this->precio= $b;
@@ -21,6 +21,7 @@ class Publicacion
         $this->fecha= $f;
         $this->nombre=$n;
         $this->tipo=$t;
+        $this->orden=$o;
 
     }
 
@@ -68,6 +69,11 @@ class Publicacion
       $this->tipo= $t;
     }
 
+    public function setOrden($t)
+    {
+      $this->orden= $o;
+    }
+
 
     //Métodos get
 
@@ -111,6 +117,11 @@ class Publicacion
       return $this->tipo;
     }
 
+    public function getOrden()
+    {
+      return $this->orden;
+    }
+
     //Funciones de la clase publicacion
 
     function crea($conex){
@@ -121,8 +132,9 @@ class Publicacion
 
     }
 
-    function lista(){
-
+    function buscarPubl($conex){
+      $obj = new persistenciaPublicacion;
+      return $obj->buscarPubl($this,$conex);
     }
 
     function listapersonal(){

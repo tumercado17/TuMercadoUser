@@ -84,7 +84,7 @@
               <div class="row">
                   <div class="col-md-12 ">
                       <div class="form-group">
-                          <input type="text" class="form-control" required="required" placeholder="Password" id="contrasena" name="contrasena">                      </div>
+                          <input type="Password" class="form-control" required="required" placeholder="Password" id="contrasena" name="contrasena">                      </div>
                       <div class="form-group">
                           <button type="submit" class="btn btn-success">ingresar</button>
                       </div>

@@ -6,6 +6,10 @@
 <html lang="en">
 <!--<![endif]-->
 <head>
+    <?php
+        require_once("../logica/funciones.php");
+        sessionCheck();
+     ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="">
@@ -13,7 +17,7 @@
     <!--[if IE]>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <![endif]-->
-    <title>Multipager Template- Travelic </title>
+   <title>Multipager Template- Travelic </title>
     <!--REQUIRED STYLE SHEETS-->
     <!-- BOOTSTRAP CORE STYLE CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
@@ -49,13 +53,30 @@
             </div>
             <div class="navbar-collapse collapse">
                  <ul class="nav navbar-nav navbar-right">
-                    <li><a href="index.php">HOME</a></li>
-                    <li><a href="Buscar.php">BUSCAR</a></li>
-                    <li><a href="Vender.php">VENDER</a></li>
-                    <li><a href="Login.php">LOGIN</a></li>
-                    <li><a href="Registrarse.php">REGISTRARSE</a></li>
-                    <li><a href="Perfil.php">PERFIL</a></li>
-                    <li><a href="Ayuda.php">AYUDA</a></li>
+                     <li><a href="index.php">HOME</a></li>
+                     <li><a href="Buscar.php">BUSCAR</a></li>
+                     <li><a href="Vender.php">VENDER</a></li>
+                     <?php
+                       if($_SESSION['logged'] == false){
+                         echo "
+                           <li><a href='Login.php'>LOGIN</a></li>
+                           <li><a href='Registrarse.php'>REGISTRARSE</a></li>
+                           ";
+                       }
+                      ?>
+                     <li><a href="Perfil.php">PERFIL</a></li>
+                     <li><a href="Ayuda.php">AYUDA</a></li>
+                     <li>
+                       <?php
+                        if($_SESSION['logged'] == true){
+                          echo "
+                            <form action='../logica/cerrarSes.php' method='POST'>
+                              <input type='submit' class='btn btn-success' value='Cerrar sesión'></input>
+                            </form>
+                            ";
+                        }
+                        ?>
+                     </li>
                 </ul>
             </div>
 
@@ -66,71 +87,29 @@
      <section  id="services-sec">
      </section>
 
-     <!--Package SECTION-->
      <section  id="services-sec">
-         <div class="container">
-           <form>
-               <div class="row">
-                   <div class="col-md-6 ">
-                       <div class="form-group">
-                           <input type="text" class="form-control" required="required" placeholder="Nombre">
-                       </div>
-                   </div>
-                   <div class="col-md-6 ">
-                       <div class="form-group">
-                           <input type="text" class="form-control" required="required" placeholder="Cedula">
-                       </div>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col-md-12 ">
-                       <div class="form-group">
-                           <input type="text" class="form-control" required="required" placeholder="Telefono">
-                       </div>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col-md-12 ">
-                       <div class="form-group">
-                           <input type="text" class="form-control" required="required" placeholder="Direccion">
-                     </div>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col-md-3 ">
-                       <div class="form-group">
-                          <select class="form-control" required="required" placeholder="Nivel de cuenta">
-                            <option value="gratis">Gratis</option>
-                            <option value="premium">Premium</option>
-                          </select>
-                       </div>
-                   </div>
-               </div>
-
-               <div class="row">
-                   <div class="col-md-12 ">
-                       <div class="form-group">
-                           <input type="text" class="form-control" required="required" placeholder="Password">
-                       </div>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col-md-12 ">
-                       <div class="form-group">
-                           <input type="text" class="form-control" required="required" placeholder="Confirmar Password">
-                       </div>
-                       <div class="form-group">
-                           <button type="submit" class="btn btn-success">Modificar</button>
-                           <button class="btn btn-success">Borrar cuenta</button>
-                       </div>
-                   </div>
-               </div>
-
-           </form>
-         </div>
+       <div class="container"  >
+           <div class="row text-center">
+             <table class="table">
+               <tr>
+                 <td>Codigo</td>
+                 <td>Nombre</td>
+                 <td>Fecha</td>
+                 <td>Precio</td>
+                 <td>Vendedor</td>
+               </tr>
+               <tr>
+                 <td>001</td>
+                 <td>Picadora mulinex</td>
+                 <td>12/11/84</td>
+                 <td>$40</td>
+                 <td>Fulano</td>
+               </tr>
+             </table>
+           </div>
+       </div>
      </section>
-     <!--END Package SECTION-->
-     <!-- END PORTFOLIO SECTION-->
+
 
 
     <!--FOOTER SECTION -->

@@ -136,39 +136,15 @@
                </tr>
                <tr>
                  <td>Compras:</td>
-                   <td><a href="ListarFavoritos.php">Favoritos</a></td>
-               </tr>
-               <tr>
-                 <td></td>
-                   <td><a href="AyudaCompras.php">Preguntas de compras</a></td>
-               </tr>
-               <tr>
-                 <td></td>
-                   <td><a href="ListarCompras.php">Compras</a></td>
-               </tr>
-               <tr>
-                 <td></td>
-                   <td><a href="ListarSubastas.php">Subastas</a></td>
+                 <td>Favoritos, Preguntas, Compras, Subastas</td>
                </tr>
                <tr>
                  <td>Ventas:</td>
-                   <td><a href="AyudaVentas.php">Preguntas de ventas</a></td>
-               </tr>
-               <tr>
-                 <td></td>
-                   <td><a href="ListarPublicaciones.php">Publicaciones</a></td>
-               </tr>
-               <tr>
-                 <td></td>
-                   <td><a href="ListarVentas.php">Ventas</a></td>
+                 <td>Preguntas, Publicaciones, Ventas</td>
                </tr>
                <tr>
                  <td>Configuracion:</td>
-                   <td><a href="DatosPersonales.php">Configurar cuenta</a></td>
-               </tr>
-               <tr>
-                 <td></td>
-                   <td><a href="Ayuda.php">Reclamos</a></td>
+                 <td>Datos personales, seguridad, reclamos, borrar cuenta</td>
                </tr>
              </table>
            </div>
