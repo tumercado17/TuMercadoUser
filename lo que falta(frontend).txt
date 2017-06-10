@@ -1,0 +1,6 @@
+/perfil/subastas
+/perfil/publicaciones
+/perfil/configurar cuenta
+/ayuda (aun no envía mensaje)
+barra de búsqueda aún no programada
+transcciones
